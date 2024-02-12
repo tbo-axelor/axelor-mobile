@@ -53,5 +53,8 @@
   "Helpdesk_SliceAction_SearchTicketStatus": "search ticket status",
   "Helpdesk_SliceAction_UpdateTicket": "update ticket",
   "Helpdesk_SliceAction_CreateTicket": "create ticket",
-  "Helpdesk_SliceAction_FetchCustomerContact": "fetch customer contact"
+  "Helpdesk_SliceAction_FetchCustomerContact": "fetch customer contact",
+  "Base_Description": "",
+  "Base_DateTimeFormat": "",
+  "Stopwatch_TimerFormat": ""
 }

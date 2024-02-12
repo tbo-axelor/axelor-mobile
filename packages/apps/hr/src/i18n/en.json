@@ -111,5 +111,11 @@
   "Hr_SliceAction_FetchTimesheetById": "fetch timesheet by id",
   "Hr_SliceAction_FetchTimesheetLine": "fetch timesheet line",
   "Hr_SliceAction_FetchDraftTimesheet": "fetch draft timesheet",
-  "Hr_SliceAction_FetchTimerDateInterval": "fetch timer with date interval"
+  "Hr_SliceAction_FetchTimerDateInterval": "fetch timer with date interval",
+  "Hr_RefreshExpenseDetails": "",
+  "Base_Add": "",
+  "Base_Cancel": "",
+  "Base_Declare": "",
+  "User_Company": "",
+  "Base_DateFormat": ""
 }

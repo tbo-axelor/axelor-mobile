@@ -180,5 +180,19 @@
   "Base_SliceAction_UpdateJsonFieldsObject": "update custom fields of object",
   "Base_SliceAction_FetchAnomalies": "fetch anomalies of object",
   "Base_SliceAction_SearchUser": "search user",
-  "Base_SliceAction_FetchDashboardConfigs": "fetch dashboard configurations"
+  "Base_SliceAction_FetchDashboardConfigs": "fetch dashboard configurations",
+  "Auth_Disconnected": "",
+  "Auth_LooseConnectionWithServer": "",
+  "Auth_Error": "",
+  "Auth_CannotOpenFile": "",
+  "User_Settings": "",
+  "Auth_Dev_Mode": "",
+  "User_ShowFilter": "",
+  "User_VirtualKeyboardConfig": "",
+  "User_ColorForColorBlind": "",
+  "User_Show_Drawer_Subtitles": "",
+  "User_ActiveCompany": "",
+  "User_Language": "",
+  "User_Theme": "",
+  "User_SendTranslations": ""
 }

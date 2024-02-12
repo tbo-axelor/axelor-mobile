@@ -26,12 +26,14 @@ import {HrModule} from '@axelor/aos-mobile-hr';
 import {QualityModule} from '@axelor/aos-mobile-quality';
 import application_properties from '../package.json';
 import {app_config} from './app.config';
+import {TrainingModule} from '@axelor/aos-mobile-training';
 
 const App = () => {
   return (
     <Application
       modules={[
         StockModule,
+        TrainingModule,
         ManufacturingModule,
         CrmModule,
         HelpDeskModule,
