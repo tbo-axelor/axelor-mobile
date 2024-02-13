@@ -15,6 +15,7 @@ import ClientSearchBar from '../../components/ClientSearchBar/ClientSearchBar';
 import ClientCard from '../../components/ClientCard/ClientCard';
 import Type from '../../types/type';
 import {fetchClients, fetchClientsCategories} from '../../features/clientSlice';
+import BottomBar from '../../components/BottomBar/BottomBar';
 
 const ClientListScreen = ({navigation}) => {
   const I18n = useTranslator();
@@ -118,6 +119,19 @@ const ClientListScreen = ({navigation}) => {
         moreLoading={moreLoading}
         isListEnd={isListEnd}
         translator={I18n.t}
+      />
+      <BottomBar
+        listItems={[
+          {icon: '123', title: 'Traininnng', onPress: null},
+          {icon: 'chat-fill', title: 'Chat', onPress: null, iconColor: 'red'},
+          {icon: 'box-fill', title: 'Stock', onPress: null, titleColor: 'blue'},
+          {icon: 'people-fill', title: 'CRM', onPress: null},
+          // {icon: 'chat-fill', title: 'Chat', onPress: null},
+          // {icon: 'chat-fill', title: 'Chat', onPress: null},
+          // {icon: 'chat-fill', title: 'Chat', onPress: null},
+          // {icon: 'chat-fill', title: 'Chat', onPress: null},
+          // {icon: 'chat-fill', title: 'Chat', onPress: null},
+        ]}
       />
     </Screen>
   );
