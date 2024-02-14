@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {
   View,
   Text,
@@ -11,48 +11,92 @@ import {
   ColorValue,
 } from 'react-native';
 
-import {BootstrapIcon, useThemeColor} from '@axelor/aos-mobile-ui';
+import {BootstrapIcon} from '@axelor/aos-mobile-ui';
 
 interface Item {
+  notifications?: {
+    count?: number;
+    hidden?: boolean;
+  };
   title: string;
-  titleColor: ColorValue;
+  titleColor?: ColorValue;
+  showTitle?: boolean;
   icon: string;
   iconColor?: ColorValue;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
+  order?: number;
+  disabled?: boolean;
 }
 
 interface BottomBarProps {
-  style?: StyleProp<ViewStyle>;
+  isFloating?: boolean;
   listItems: Item[];
+  style?: StyleProp<ViewStyle>;
 }
 
-function BottomBar({listItems, style}: BottomBarProps) {
-  const Colors = useThemeColor();
+/**
+ * Displays a customizable bottom bar.
+ * @param listItems   All bottom bar actions. They require a title, an icon name and an onPress function.
+ * @param isFloating  Makes the bottom bar floating. Default value is false.
+ * @param order       Overrides the classic order based on index
+ */
+function BottomBar({style, listItems, isFloating = false}: BottomBarProps) {
+  const orderedList = useMemo(() => {
+    if (listItems.every(item => item.hasOwnProperty('order'))) {
+      return listItems.sort((a, b) => a.order - b.order);
+    }
 
-  const renderItem: ListRenderItem<Item> = useCallback(({item}) => {
-    return (
-      <View style={{padding: 10}}>
-        <Pressable
-          onPress={item.onPress}
-          android_ripple={{radius: 50}}
-          style={[item?.style, styles.item]}>
-          <BootstrapIcon name={item.icon} size={30} color={item.iconColor} />
-          <Text
-            numberOfLines={1}
-            style={[styles.text, {color: item.titleColor}]}>
-            {item.title}
-          </Text>
-        </Pressable>
-      </View>
-    );
-  }, []);
+    return listItems;
+  }, [listItems]);
+
+  const renderItem: ListRenderItem<Item> = useCallback(
+    ({
+      item: {
+        icon,
+        onPress,
+        title,
+        iconColor,
+        notifications,
+        showTitle = true,
+        style,
+        titleColor,
+        disabled,
+      },
+    }) => {
+      return (
+        <View style={styles.itemContainer}>
+          <Pressable
+            onPress={onPress}
+            disabled={disabled}
+            android_ripple={{radius: 50}}
+            style={[styles.item, style]}>
+            <BootstrapIcon name={icon} size={30} color={iconColor} />
+            <Text numberOfLines={1} style={[styles.text, {color: titleColor}]}>
+              {showTitle ? title : ''}
+            </Text>
+          </Pressable>
+          {!notifications?.hidden && notifications?.count > 0 && (
+            <Text
+              style={[
+                styles.notification,
+                notifications?.count > 9 && styles.smallText,
+              ]}>
+              {notifications?.count > 9 ? '9+' : notifications?.count}
+            </Text>
+          )}
+        </View>
+      );
+    },
+    [],
+  );
 
   return (
-    <View style={[styles.container, style]}>
+    <View
+      style={[styles.container, isFloating && styles.floatingContainer, style]}>
       <FlatList
         contentContainerStyle={styles.flatListContainer}
-        data={listItems}
+        data={orderedList}
         renderItem={renderItem}
         horizontal={true}
       />
@@ -64,23 +108,50 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#eee',
     width: '100%',
+    overflow: 'hidden',
     alignItems: 'center',
+  },
+  smallText: {
+    fontSize: 10,
+  },
+  floatingContainer: {
+    bottom: 0,
+    width: '90%',
+    margin: 20,
+    borderRadius: 20,
+    position: 'absolute',
   },
   flatListContainer: {
     paddingHorizontal: 20,
     justifyContent: 'space-between',
   },
+  itemContainer: {
+    padding: 10,
+    overflow: 'hidden',
+  },
   item: {
-    justifyContent: 'center',
-    alignItems: 'center',
     width: 60,
     height: 60,
-    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
   },
   text: {
     marginTop: 5,
     fontSize: 16,
+  },
+  notification: {
+    width: 16,
+    height: 16,
+    position: 'absolute',
+    top: 6,
+    left: 50,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    includeFontPadding: false,
+    color: 'white',
+    backgroundColor: 'red',
+    borderRadius: 8,
   },
 });
 

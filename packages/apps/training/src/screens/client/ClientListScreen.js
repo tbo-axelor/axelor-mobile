@@ -56,7 +56,6 @@ const ClientListScreen = ({navigation}) => {
 
   const fetchClientAPI = useCallback(
     page => {
-      console.log('CALL FETCH');
       dispatch(fetchClients({page: page}));
     },
     [dispatch],
@@ -121,11 +120,48 @@ const ClientListScreen = ({navigation}) => {
         translator={I18n.t}
       />
       <BottomBar
+        isFloating
         listItems={[
-          {icon: '123', title: 'Traininnng', onPress: null},
-          {icon: 'chat-fill', title: 'Chat', onPress: null, iconColor: 'red'},
-          {icon: 'box-fill', title: 'Stock', onPress: null, titleColor: 'blue'},
-          {icon: 'people-fill', title: 'CRM', onPress: null},
+          {
+            icon: '123',
+            title: 'Traininnng',
+            onPress: () => {
+              console.log('Training!');
+            },
+            order: 3,
+          },
+          {
+            icon: 'chat-fill',
+            title: 'Chat',
+            style: {
+              backgroundColor: 'gold',
+            },
+            onPress: null,
+            iconColor: 'orange',
+            showTitle: false,
+            order: 1,
+          },
+          {
+            icon: 'box-fill',
+            title: 'Stock',
+            onPress: null,
+            titleColor: 'blue',
+            notifications: {
+              count: 10,
+            },
+            order: 2,
+          },
+          {
+            icon: 'people-fill',
+            title: 'CRM',
+            onPress: null,
+            notifications: {
+              count: 3,
+              hidden: true,
+            },
+            disabled: true,
+            order: 4,
+          },
           // {icon: 'chat-fill', title: 'Chat', onPress: null},
           // {icon: 'chat-fill', title: 'Chat', onPress: null},
           // {icon: 'chat-fill', title: 'Chat', onPress: null},
