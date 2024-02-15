@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState, useMemo} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 import {
   ChipSelect,
@@ -17,7 +17,7 @@ import Type from '../../types/type';
 import {fetchClients, fetchClientsCategories} from '../../features/clientSlice';
 import BottomBar from '../../components/BottomBar/BottomBar';
 
-const ClientListScreen = ({navigation}) => {
+const ClientListScreen = () => {
   const I18n = useTranslator();
   const dispatch = useDispatch();
   const Colors = useThemeColor();
@@ -29,7 +29,6 @@ const ClientListScreen = ({navigation}) => {
 
   useEffect(() => {
     dispatch(fetchClientsCategories());
-    categories.map((cat, index) => console.log('Cat:', index, cat.name));
   }, []);
 
   const listItems = useMemo(() => {
@@ -120,7 +119,7 @@ const ClientListScreen = ({navigation}) => {
         translator={I18n.t}
       />
       <BottomBar
-        isFloating
+        isFloating={true}
         listItems={[
           {
             icon: '123',
@@ -129,6 +128,7 @@ const ClientListScreen = ({navigation}) => {
               console.log('Training!');
             },
             order: 3,
+            listItems: [{title: 'Title'}],
           },
           {
             icon: 'chat-fill',
@@ -140,6 +140,8 @@ const ClientListScreen = ({navigation}) => {
             iconColor: 'orange',
             showTitle: false,
             order: 1,
+            disabled: true,
+            hideIfDisabled: true,
           },
           {
             icon: 'box-fill',
@@ -160,13 +162,9 @@ const ClientListScreen = ({navigation}) => {
               hidden: true,
             },
             disabled: true,
+            hideIfDisabled: false,
             order: 4,
           },
-          // {icon: 'chat-fill', title: 'Chat', onPress: null},
-          // {icon: 'chat-fill', title: 'Chat', onPress: null},
-          // {icon: 'chat-fill', title: 'Chat', onPress: null},
-          // {icon: 'chat-fill', title: 'Chat', onPress: null},
-          // {icon: 'chat-fill', title: 'Chat', onPress: null},
         ]}
       />
     </Screen>
